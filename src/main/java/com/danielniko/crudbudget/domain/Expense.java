@@ -3,40 +3,34 @@ package com.danielniko.crudbudget.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Expense implements Serializable {
+public class Expense {
 
-	private static final long serialVersionUID = -5706498545977423505L;
-	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long expenseId;
     private String name;
     private String description;
-    private Long categoryId;
     private double amount;
-
-    /*
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date regDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updDate;
-    */
+    
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category")
+    private Category category;
     
     public Expense() {}
     
-    public Expense(String name, String description, Long categoryId, double amount) {
+    public Expense(String name, String description, Long categoryId, double amount, Category category) {
     	this.name = name;
     	this.description = description;
-    	this.categoryId = categoryId;
     	this.amount = amount;
+    	this.category = category;
     }
 
 	public Long getExpenseId() {
@@ -55,14 +49,6 @@ public class Expense implements Serializable {
 		this.description = description;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -78,32 +64,19 @@ public class Expense implements Serializable {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
-	/*
-	public Date getRegDate() {
-		return regDate;
+
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
-
-	public Date getUpdDate() {
-		return updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-	*/
 
 	@Override
 	public String toString() {
-		return "Expense [expenseId=" + expenseId + ", name=" + name + ", description=" + description + ", categoryId="
-				+ categoryId + ", amount=" + amount + "]";
+		return "Expense [expenseId=" + expenseId + ", name=" + name + ", description=" + description + ", amount="
+				+ amount + "]";
 	}
-    
-    
-    
-    
+	
 }
