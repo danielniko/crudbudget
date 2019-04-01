@@ -19,7 +19,9 @@ public class Category {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
+	
 	private String name;
+	private String description;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="category")
 	@JsonIgnore
@@ -37,7 +39,12 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public List<Expense> getExpenses() {
 		return expenses;
 	}

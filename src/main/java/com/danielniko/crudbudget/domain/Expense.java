@@ -1,7 +1,5 @@
 package com.danielniko.crudbudget.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,7 +19,7 @@ public class Expense {
     private double amount;
     
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "categoryId")
     private Category category;
     
     public Expense() {}
