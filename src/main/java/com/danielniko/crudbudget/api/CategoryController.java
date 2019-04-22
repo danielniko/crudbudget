@@ -15,7 +15,8 @@ public class CategoryController {
     private CategoryRepository repository;
 	
     @RequestMapping("")
-    public Iterable<Category> getCategories() {
+    public Iterable<Category> getCategories() throws InterruptedException {
+    	Thread.sleep(2000);
       return repository.findAll();
     }
 }
